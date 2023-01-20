@@ -4,7 +4,7 @@
 @section('container')
     {{-- table-bordered --}}
     <table id="example" style="" class="table mdb-color.darken-3 align-middle mb-0">
-
+        <p>hello repostory</p>
         <thead>
             <tr style="background-color: #E3F2FD; color:black">
                 <th scope="col">
