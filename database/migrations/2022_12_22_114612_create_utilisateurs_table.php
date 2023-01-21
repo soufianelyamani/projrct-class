@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('mdp');
             $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

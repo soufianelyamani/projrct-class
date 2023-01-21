@@ -17,16 +17,55 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     public function __construct()
+     {
+        $this->middleware('auth')->except(['index', 'show', 'archive', 'all']);
+     }
+
     public function index()
     {
         // $client = Client::find(1);
         // echo $client->CommandeVente[0]->dateCom;
         // exit();
 
-        $client = Client::all();
+        $client = Client::withCount('CommandeVente')->get();
 
         return view('client.index', [
-            'client' => $client
+            'clients' => $client,
+            'tab' => 'list'
+        ]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+
+     public function archive()
+     {
+
+        $client = Client::onlyTrashed()->withCount('CommandeVente')->get();
+
+        return view('client.index', [
+            'clients' => $client,
+            'tab' => 'archive'
+        ]);
+     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+
+    public function all()
+    {
+        $client = Client::withTrashed()->withCount('CommandeVente')->get();
+
+        return view('client.index', [
+            'clients' => $client,
+            'tab' => 'all'
         ]);
     }
 
@@ -114,7 +153,6 @@ class ClientController extends Controller
     {
         $update = client::findOrFail($id);
 
-        $update->id = $request->input("id");
         $update->nom = $request->input("nom");
         $update->prenom = $request->input("prenom");
         $update->telephone = $request->input("telephone");
@@ -141,7 +179,7 @@ class ClientController extends Controller
 
         $client = Client::find($id);
 
-        CommandeVente::where('client_id', $client->id)->update(['client_id' => null]);
+        CommandeVente::where('client_id', $client->id);
 
         $client->delete();
 

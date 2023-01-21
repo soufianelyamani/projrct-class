@@ -16,11 +16,9 @@ return new class extends Migration
         Schema::create('commande_ventes', function (Blueprint $table) {
             $table->id()->unique();
             $table->dateTime('dateCom');
-            $table->unsignedBigInteger('client_id')->nullable();
-            // $table->foreign('client_id')->references('id')->on('clients')->onUpdate('SET NULL')->onDelete('SET NULL');
-            $table->foreign('client_id')->references('id')->on('clients');
-
+            $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

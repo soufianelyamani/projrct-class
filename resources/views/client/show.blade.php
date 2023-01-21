@@ -3,8 +3,7 @@
     <div class="card">
         {{-- <div class="card-header"> --}}
         <div class="card-body">
-            <label style="background-color: grey" class="badge badge-primary" for="id">Id :</label>
-            <h3>{{ $donne->id }}</h3>
+
             <label style="background-color: grey" class="badge badge-primary" for="nom">Name :</label>
             <p class="fw-bold mb-1">
             <h3>{{ $donne->nom }}</h3>

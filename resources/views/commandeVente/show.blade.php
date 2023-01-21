@@ -3,8 +3,6 @@
     <div class="card">
         {{-- <div class="card-header"> --}}
         <div class="card-body">
-            <label class="badge badge-primary" for="id">Id :</label>
-            <h3>{{ $show->id }}</h3>
             <label class="badge badge-primary" for="nom">dateCom :</label>
             <p class="fw-bold mb-1">
             <h3>{{ $show->dateCom }}</h3>

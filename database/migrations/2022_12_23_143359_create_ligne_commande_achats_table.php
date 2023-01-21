@@ -14,12 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ligne_commande_achats', function (Blueprint $table) {
-            $table->unsignedBigInteger('commandeAchat_id');
-            $table->foreign('commandeAchat_id')->references('id')->on('commande_achats');
-            $table->unsignedBigInteger('produit_id');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreignId('commandeAchat_id')->constrained('commande_achats');
+            $table->foreignId('produit_id')->constrained('produits');
             $table->integer('qt');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('commande_achats', function (Blueprint $table) {
             $table->id()->unique();
             $table->dateTime('dateCom');
-            $table->unsignedBigInteger('fournisseur_id');
-            $table->foreign('fournisseur_id')->references('id')->on('fournisseurs');
-
+            $table->foreignId('fournisseur_id')->constrained('fournisseurs');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

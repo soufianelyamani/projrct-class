@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ligne_commande_ventes', function (Blueprint $table) {
-            $table->unsignedBigInteger('commandeVente_id');
-            $table->foreign('commandeVente_id')->references('id')->on('commande_ventes');
-            $table->unsignedBigInteger('produit_id');
-            $table->foreign('produit_id')->references('id')->on('produits');
+            $table->foreignId('commandeVente_id')->constrained('commande_ventes');
+            $table->foreignId('produit_id')->constrained('produits');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

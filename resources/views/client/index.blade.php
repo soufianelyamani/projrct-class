@@ -2,13 +2,20 @@
 @extends('layouts.app')
 
 @section('container')
+    <nav class="nav nav-tabs nav-stacked my-5">
+        <a class="nav-link @if ($tab == 'list') active @endif" href="client">List</a>
+        <a class="nav-link @if ($tab == 'archive') active @endif" href="/client-archive">Archive</a>
+        <a class="nav-link @if ($tab == 'all') active @endif" href="/client-all">all</a>
+    </nav>
+
+    <div>
+        <h4>{{ $clients->count() }} client</h4>
+    </div>
+
     {{-- table-bordered --}}
     <table id="example" style="" class="table mdb-color.darken-3 align-middle mb-0">
         <thead>
             <tr style="background-color: #E3F2FD; color:black">
-                <th scope="col">
-                    <p class="fw-bold mb-1">Id</p>
-                </th>
                 <th scope="col">
                     <p class="fw-bold mb-1">Nom</p>
                 </th>
@@ -38,10 +45,9 @@
                 </th>
             </tr>
         </thead>
-        @foreach ($client as $client)
+        @foreach ($clients as $client)
             <tbody>
                 <tr class="center" style="background-color: white">
-                    <th Style="max-width:40px;overflow:hidden;" scope="row" style="">{{ $client->id }}</th>
                     <td>
                         <div Style="max-width:40px;overflow:hidden;"class="ms-3">
                             <p class="fw-bold mb-1">{{ $client->nom }}</p>

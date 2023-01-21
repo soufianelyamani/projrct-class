@@ -10,9 +10,6 @@
         <thead>
             <tr style="background-color: #E3F2FD; color:black">
                 <th scope="col">
-                    <p class="fw-bold mb-1">Id</p>
-                </th>
-                <th scope="col">
                     <p class="fw-bold mb-1">Date De Commande</p>
                 </th>
                 <th scope="col">
@@ -32,7 +29,6 @@
         @foreach ($commandes as $commande)
             <tbody>
                 <tr class="center" style="background-color: white">
-                    <th scope="row" style="">{{ $commande->id }}</th>
                     <td>
                         <div class="ms-3">
                             <p class="fw-bold mb-1">{{ $commande->dateCom }}</p>

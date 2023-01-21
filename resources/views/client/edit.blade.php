@@ -7,10 +7,6 @@
                 @method('PUT')
                 @csrf
 
-                <label class="badge badge-primary" for="id">Id :</label>
-                <input type="text" name="id" id="id" value="{{ old('id', $edit->id ?? null) }}"
-                    class="dropdown-item">
-
                 <label class="badge badge-primary" for="nom">Name :</label>
                 <input type="text" name="nom" value="{{ old('nom', $edit->nom ?? null) }}" class="dropdown-item">
 

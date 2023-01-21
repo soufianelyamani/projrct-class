@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\commandeVenteController;
+use App\Models\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\commandeVenteController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -27,9 +28,12 @@ Route::get('/', function () {
 // });
 
 
- Route::get('/dashboard', function () {
-     return view('dashboard');
- })->middleware(['auth', 'verified'])->name('dashboard');
+//  Route::get('/dashboard', function () {
+//      return view('dashboard');
+//  })->middleware(['auth', 'verified'])->name('dashboard');
+
+ Route::get('/dashboard', [ClientController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,7 +43,10 @@ Route::middleware('auth')->group(function () {
 
 // route::resource('user', UserController::class)-> shallow();
 
-Route::resource('/client', ClientController::class)->middleware('auth');
+Route::resource('/client', ClientController::class);
+
+route::get('/client-archive', [ClientController::class, 'archive']);
+route::get('/client-all', [ClientController::class, 'all']);
 
 Route::resource('/commandeVente', commandeVenteController::class);
 

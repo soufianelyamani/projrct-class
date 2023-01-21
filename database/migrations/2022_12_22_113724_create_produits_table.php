@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('libelle');
-            $table->unsignedBigInteger('typeProduit_id')->unique();
-            $table->foreign('typeProduit_id')->references('id')->on('type_Produits');
+            $table->foreignId('typeProduit_id')->constrained('type_Produits');
             $table->float('prix');
             $table->string('image');
             $table->string('description');
             $table->integer('qtStock');
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

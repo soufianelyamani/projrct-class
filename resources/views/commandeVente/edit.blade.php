@@ -7,10 +7,6 @@
                 @method('PUT')
                 @csrf
 
-                <label class="badge badge-primary" for="id">Id :</label>
-                <input type="text" name="id" id="id" value="{{ old('id', $edit->id ?? null) }}"
-                    class="dropdown-item">
-
                 <label class="badge badge-primary" for="dateCom">Date de commamde :</label>
                 <div name="dateCom" class="input-group date" id="datetimepicker" data-target-input="nearest">
                     <input type="date" name="v" value="{{ old('dateCom', $edit->dateCom ?? null) }}" id="dateCom"

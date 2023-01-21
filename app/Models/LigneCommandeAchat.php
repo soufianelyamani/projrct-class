@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LigneCommandeAchat extends Model
 {
     protected $fillable = ['commandeAchat_id','produit_id','qt'];
 
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public function CommandeAchat() {
         return $this->BelongsTo('CommandeAchat');

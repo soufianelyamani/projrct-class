@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Client extends Model
 {
     protected $fillable = ['id','nom', 'prenom', 'telephone', 'email', 'ville', 'adresse'];
-    use HasFactory;
+
+    use HasFactory, SoftDeletes;
+
     public function CommandeVente() {
         return $this->hasMany(CommandeVente::class);
     }
