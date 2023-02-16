@@ -33,6 +33,9 @@
             <p class="fw-bold mb-1">
             <h4>{{ $donne->commande_vente_count }}</h4>
             </p>
+            @if ((new Carbon\Carbon())->diffInMinutes($donne->created_at) < 5)
+                <strong>New!</strong>
+            @endif
             {{-- <img src="/uploads/untitled-185-DAI-low-light.jpg" alt="" srcset=""> --}}
         </div>
         {{-- </div> --}}

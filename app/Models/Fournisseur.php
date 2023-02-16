@@ -15,4 +15,10 @@ class Fournisseur extends Model
     public function commandeAchet() {
         return $this->hasOne('Fournisseur');
     }
+
+    public function user() {
+
+        return $this->belongsTo(User::class);
+
+    }
 }

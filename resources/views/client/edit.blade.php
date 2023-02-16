@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('container')
     <div class="card">
-        <div class="card-header">Edit Students</div>
+        <div class="card-header">Edit Client</div>
         <div class="card-body">
             <form method="POST" action="{{ route('client.update', [$edit->id]) }}">
                 @method('PUT')

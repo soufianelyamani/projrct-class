@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('commande_ventes', function (Blueprint $table) {
             $table->id()->unique();
             $table->dateTime('dateCom');
-            $table->foreignId('client_id')->constrained('clients');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

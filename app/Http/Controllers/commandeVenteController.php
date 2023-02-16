@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use index;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\commandeVente;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class commandeVenteController extends Controller
@@ -18,13 +18,17 @@ class commandeVenteController extends Controller
     public function index()
     {
 
-        $commande = commandeVente::with('Client')->get();
+        $commande = commandeVente::with('client')->get();
+        // return $commande;
+
+
+        // return $commande;
 
         return view('commandeVente.index', [
-            'commandes' => $commande
+            'commandes' => $commande,
+            'tab' => 'list'
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -32,8 +36,11 @@ class commandeVenteController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
-        return view('commandeVente.create', compact('clients'));
+        // $clients = Client::all();
+
+        $commandeVente = commandeVente::with(['client', 'user'])->orderBy('updated_at', 'desc')->get();
+
+        return view('commandeVente.create', compact('commandeVente'));
     }
 
     /**
@@ -50,9 +57,15 @@ class commandeVenteController extends Controller
             'client_id' => 'required'
         ]);
 
-        commandeVente::create($request->all());
+        $ad = new commandeVente();
+        $ad->dateCom = $request->input('dateCom');
+        $ad->client_id = $request->input('client_id');
+        $ad->user_id = auth()->id();
+        $ad->save();
 
-        Session::flash('status store', 'Your add operation has been successfully completed!');
+        // commandeVente::create($request->all());
+
+        Session::flash("status store', 'Votre opération d'ajout a été effectuée avec succès !");
 
         return redirect()->route('commandeVente.index');
 
@@ -66,7 +79,7 @@ class commandeVenteController extends Controller
      */
     public function show($id)
     {
-        $show = commandeVente::with('Client')->find($id);
+        $show = commandeVente::with('client')->find($id);
         return view('commandeVente.show', [
             'show' => $show
         ]);
@@ -111,7 +124,7 @@ class commandeVenteController extends Controller
 
         Session::flash('status Edit', 'Your update operation has been successfully completed!');
 
-        return redirect()->route('client.index');
+        return redirect()->route('commandeVente.index');
     }
 
     /**
@@ -122,6 +135,13 @@ class commandeVenteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commandeVente = commandeVente::with(['client'])->get()->find($id);
+
+        // CommandeVente::where('client_id', $commandeVente->id);
+
+        $commandeVente->delete();
+
+
+        return redirect()->back();
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Client;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ClientSeeder extends Seeder
 {
@@ -16,10 +17,11 @@ class ClientSeeder extends Seeder
     public function run()
     {
 
-        if ($this->command->confirm('Do you want to refresh the database ?')) {
-            $this->command->call('migrate:refresh');
-            $this->command->info('database was refresh');
-            $this->command->info('Now it will be done seeds');
+        $user = User::all();
+
+        if ($user->count() == 0) {
+            $this->command->info("please create some user");
+            return;
         }
 
         $nbrClient = (int)$this->command->ask('How Many of Client you mant generate ?', 10);

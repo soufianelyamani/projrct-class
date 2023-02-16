@@ -38,7 +38,7 @@
                         {{-- @foreach ($commande->Client as $danne) --}}
                         <div class="ms-3">
                             <a href="{{ route('client.show', [$commande->Client->id]) }}">
-                                <p class="fw-bold mb-1">{{ $commande->Client->prenom }} {{ $commande->Client->nom }}</p>
+                                <p class="fw-bold mb-1">{{ $commande->client->prenom }} {{ $commande->client->nom }}</p>
                             </a>
                         </div>
                         {{-- @endforeach --}}

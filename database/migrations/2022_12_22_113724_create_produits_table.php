@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('libelle');
-            $table->foreignId('typeProduit_id')->constrained('type_Produits');
+            $table->foreignId('typeProduit_id')->constrained('type_Produits')->onDelete('cascade')->onUpdate('cascade');
             $table->float('prix');
             $table->string('image');
             $table->string('description');

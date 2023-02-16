@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,6 +18,9 @@ class ClientFactory extends Factory
      */
     public function definition()
     {
+
+        $user = User::pluck('id')->toArray();
+
         return [
                 'nom' => fake()->name(),
                 'prenom' => fake()->name(),
@@ -25,6 +29,10 @@ class ClientFactory extends Factory
                 // 'password' => '12345', // password
                 'ville' => fake()->name(),
                 'adresse' => fake()->name(),
+                'user_id' => fake()->randomElement($user)
+
+                // 'user_id' => User::factory(),
+
         ];
     }
 }

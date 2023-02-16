@@ -43,12 +43,20 @@ Route::middleware('auth')->group(function () {
 
 // route::resource('user', UserController::class)-> shallow();
 
+/* Route of Client */
 Route::resource('/client', ClientController::class);
-
+route::patch('/client/{id}/restore', [ClientController::class, 'restore']);
+route::delete('/client/{id}/deletecompletely', [ClientController::class, 'deletecompletely']);
 route::get('/client-archive', [ClientController::class, 'archive']);
 route::get('/client-all', [ClientController::class, 'all']);
 
+/* Route of Commande */
 Route::resource('/commandeVente', commandeVenteController::class);
+route::patch('/commandeVente/{id}/restore', [commandeVenteController::class, 'restore']);
+route::delete('/commandeVente/{id}/deletecompletely', [commandeVenteController::class, 'deletecompletely']);
+route::get('/commandeVente-archive', [commandeVenteController::class, 'archive']);
+route::get('/commandeVente-all', [commandeVenteController::class, 'all']);
+
 
 require __DIR__.'/auth.php';
 

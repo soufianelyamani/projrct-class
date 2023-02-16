@@ -2,7 +2,7 @@
 
 @section('container')
     <div>
-
+        <h4 class="fw-bold mb-1">{{ $commandes->count() }} Commande</h4>
     </div>
     {{-- table-bordered --}}
     <table id="example" style="" class="table mdb-color.darken-3 align-middle mb-0">
@@ -14,6 +14,12 @@
                 </th>
                 <th scope="col">
                     <p class="fw-bold mb-1">command of</p>
+                </th>
+                <th scope="col">
+                    <p class="fw-bold mb-1">Date de création</p>
+                </th>
+                <th scope="col">
+                    <p class="fw-bold mb-1">Last updated</p>
                 </th>
                 <th scope="col">
                     <p class="fw-bold mb-1">Show</p>
@@ -35,13 +41,25 @@
                         </div>
                     </td>
                     <td>
-                        {{-- @foreach ($commande->Client as $danne) --}}
                         <div class="ms-3">
-                            <a href="{{ route('client.show', [$commande->Client->id]) }}">
-                                <p class="fw-bold mb-1">{{ $commande->Client->prenom }} {{ $commande->Client->nom }}</p>
+                            <a href="{{ route('client.show', $commande->id) }}">
+                                <p class="fw-bold mb-1">{{ $commande->client->prenom }} {{ $commande->client->nom }}</p>
                             </a>
                         </div>
-                        {{-- @endforeach --}}
+                    </td>
+                    <td>
+                        <div class="ms-3 text-muted">
+                            <p class="fw-bold mb-1">{{ $commande->created_at->diffForHumans() }}, by
+                                {{ $commande->user->name }}
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ms-3 text-muted">
+                            <p class="fw-bold mb-1">{{ $commande->updated_at->diffForHumans() }}, by
+                                {{ $commande->user->name }}
+                            </p>
+                        </div>
                     </td>
                     <td><a href="{{ route('commandeVente.show', [$commande->id]) }}"
                             class="btn btn-success btn-rounded">Show</a>
@@ -70,5 +88,5 @@
     </script>
 @endsection
 @section('Ajout')
-    <a class='link-dark' href="{{ route('commandeVente.create') }}">Ajoute</a>
+    <a class='link-dark' href="{{ route('client.create') }}">Ajoute</a>
 @endsection

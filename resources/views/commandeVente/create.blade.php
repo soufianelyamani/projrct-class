@@ -27,8 +27,8 @@
             <select name="client_id" id="client_id" class="form-select form-select-lg mb-3"
                 aria-label=".form-select-lg example">
                 <option value="" disabled selected>Choose your client</option>
-                @foreach ($clients as $client)
-                    <option value="{{ $client->id }}">{{ $client->prenom }} {{ $client->nom }}</option>
+                @foreach ($commandeVente as $cmd)
+                    <option value="{{ $cmd->client->id }}">{{ $cmd->client->prenom }} {{ $cmd->client->nom }}</option>
                 @endforeach
             </select><br>
             @error('client_id')

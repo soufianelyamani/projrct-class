@@ -18,6 +18,12 @@ class LigneCommandeVente extends Model
 
     public function Produit() {
         return $this->BelongsTo('Produit');
-}
+    }
+
+    public function user() {
+
+        return $this->belongsTo(User::class);
+
+    }
 
 }

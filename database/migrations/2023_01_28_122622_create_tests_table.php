@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('commande_achats', function (Blueprint $table) {
-            $table->id()->unique();
-            $table->dateTime('dateCom');
-            $table->foreignId('fournisseur_id')->constrained('fournisseurs')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('tests', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commande_achats');
+        Schema::dropIfExists('tests');
     }
 };

@@ -14,15 +14,37 @@ class CommandeVente extends Model
     protected $fillable = ['id', 'dateCom', 'client_id'];
 
 
-    public function Client() {
-        return $this->BelongsTo(Client::class);
+    public function client() {
+        return $this->BelongsTo(Client::class, 'client_id');
     }
 
-    public function LigneCommandeVente() {
+    public function ligneCommandeVente() {
         return $this->hasOne(LigneCommandeVente::class);
     }
 
-    public function Produit(){
-        return $this->belongsToMany(Produit::class);
+    public function produit(){
+        return $this->hasMany(Produit::class);
+    }
+
+    public function user() {
+
+        return $this->belongsTo(User::class);
+
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($client){
+
+            $client->client()->delete();
+
+        });
+
+        static::restoring(function($client){
+
+            $client->client()->restore();
+
+        });
     }
 }

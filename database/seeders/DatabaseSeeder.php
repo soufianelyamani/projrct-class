@@ -17,9 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        if ($this->command->confirm('Do you want to refresh the database ?')) {
+            $this->command->call('migrate:refresh');
+            $this->command->info('database was refresh');
+            $this->command->info('Now it will be done seeds');
+        }
+
         $this->call([
             ClientSeeder::class,
-            CommandeVenteSeeder::class
+            CommandeVenteSeeder::class,
+            // UserSeeder::class
         ]);
     }
 }

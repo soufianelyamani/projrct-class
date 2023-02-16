@@ -42,4 +42,52 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function clients() {
+
+        return $this->hasMany(Client::class);
+
+    }
+
+    // public function commandeVentes() {
+
+    //     return $this->hasMany(commandeVentes::class);
+
+    // }
+
+    // public function commandeAchats() {
+
+    //     return $this->hasMany(CommandeAchat::class);
+
+    // }
+
+    // public function Fournisseurs() {
+
+    //     return $this->hasMany(Fournisseur::class);
+
+    // }
+
+    // public function LigneCommandeAchats() {
+
+    //     return $this->hasMany(LigneCommandeAchat::class);
+
+    // }
+
+    // public function LigneCommandeVentes() {
+
+    //     return $this->hasMany(LigneCommandeVente::class);
+
+    // }
+
+    // public function Produis() {
+
+    //     return $this->hasMany(Produit::class);
+
+    // }
+
+    // public function TypeProduits() {
+
+    //     return $this->hasMany(TypeProduit::class);
+
+    // }
 }

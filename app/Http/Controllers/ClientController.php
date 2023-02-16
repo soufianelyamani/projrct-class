@@ -6,7 +6,9 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\CommandeVente;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 
 class ClientController extends Controller
@@ -17,10 +19,10 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-     {
-        $this->middleware('auth')->except(['index', 'show', 'archive', 'all']);
-     }
+    //  public function __construct()
+    //  {
+    //     $this->middleware('auth')->except(['index', 'show', 'archive', 'all']);
+    //  }
 
     public function index()
     {
@@ -28,7 +30,7 @@ class ClientController extends Controller
         // echo $client->CommandeVente[0]->dateCom;
         // exit();
 
-        $client = Client::withCount('CommandeVente')->get();
+        $client = Client::withCount('commandeVente', 'user')->orderBy('updated_at', 'desc')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -45,7 +47,8 @@ class ClientController extends Controller
      public function archive()
      {
 
-        $client = Client::onlyTrashed()->withCount('CommandeVente')->get();
+        //La méthode onlyTrashed ne récupérera que le client qui a été supprimé.
+        $client = Client::onlyTrashed()->withCount('commandeVente')->orderBy('updated_at', 'desc')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -61,7 +64,9 @@ class ClientController extends Controller
 
     public function all()
     {
-        $client = Client::withTrashed()->withCount('CommandeVente')->get();
+        //La méthode withTrashed ne récupérera que le client qui a été supprimé.
+
+        $client = Client::withTrashed()->withCount('commandeVente')->orderBy('updated_at', 'desc')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -76,7 +81,10 @@ class ClientController extends Controller
      */
     public function create()
     {
+        // $this->authorize('client.create');
+
         return view('client.create');
+
     }
 
     /**
@@ -87,6 +95,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        //validate data
         $request->validate([
             'nom'          => 'required',
             'prenom'       => 'required',
@@ -96,7 +105,20 @@ class ClientController extends Controller
             'adresse'      => 'required',
         ]);
 
-        Client::create($request->all());
+        $ad = new Client();
+        $ad->nom = $request->input('nom');
+        $ad->prenom = $request->input('prenom');
+        $ad->telephone = $request->input('telephone');
+        $ad->email = $request->input('email');
+        $ad->ville = $request->input('ville');
+        $ad->adresse = $request->input('adresse');
+        $ad->user_id = auth()->id();
+        $ad->save();
+
+
+        // $validation['user_id'] = $request->user()->id;
+
+        // Client::create($validation);
 
         Session::flash('status store', 'Your add operation has been successfully completed!');
 
@@ -111,12 +133,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $donné = client::withCount('CommandeVente')->get()->find($id);
+        $donné = client::withCount('commandeVente')->get()->find($id);
 
-        // $nbrCom = Client::withCount('CommandeVente')->get()->find($id);
-
-
-
+        // $this->authorize('client', $donné);
 
         $commande = CommandeVente::all();
 
@@ -136,6 +155,10 @@ class ClientController extends Controller
     public function edit($id)
     {
         $edit = client::findOrFail($id);
+        // return $edit;
+
+        //pour l'autorisation d'update
+        $this->authorize('update', $edit);
 
         return view('client.edit', [
             'edit' => $edit
@@ -152,6 +175,15 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         $update = client::findOrFail($id);
+
+        //pour l'autorisation d'update
+
+        $this->authorize('update', $update);
+
+        // if (Gate::denies('client.update', $update)) {
+        //     abort(403, "You can't edit this client");
+        // };
+
 
         $update->nom = $request->input("nom");
         $update->prenom = $request->input("prenom");
@@ -179,11 +211,34 @@ class ClientController extends Controller
 
         $client = Client::find($id);
 
+        //pour l'autorisation de destroy
+        $this->authorize('delete', $client);
+
         CommandeVente::where('client_id', $client->id);
 
         $client->delete();
 
         Session::flash('status Delete', 'Are you sure you want to delete this object?');
+
+        return redirect()->back();
+    }
+
+    public function restore($id) {
+        $client = Client::onlyTrashed()->where('id', $id)->first();
+
+        $this->authorize('restore', $client);
+
+        $client->restore();
+
+        return Redirect()->back();
+    }
+
+    public function deletecompletely($id) {
+        $client = Client::onlyTrashed()->where('id', $id)->first();
+
+        $this->authorize('forceDelete', $client);
+
+        $client->forceDelete();
 
         return redirect()->back();
     }

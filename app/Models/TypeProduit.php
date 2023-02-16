@@ -15,4 +15,10 @@ class TypeProduit extends Model
     public function Produit() {
         return $this->hasOne('Produit');
     }
+
+    public function user() {
+
+        return $this->belongsTo(User::class);
+
+    }
 }

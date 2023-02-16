@@ -28,4 +28,10 @@ class Produit extends Model
         return $this->belongsToMany(CommandeAchat::class);
     }
 
+    public function user() {
+
+        return $this->belongsTo(User::class);
+
+    }
+
 }

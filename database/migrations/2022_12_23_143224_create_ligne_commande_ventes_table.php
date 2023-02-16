@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ligne_commande_ventes', function (Blueprint $table) {
-            $table->foreignId('commandeVente_id')->constrained('commande_ventes');
-            $table->foreignId('produit_id')->constrained('produits');
+            $table->foreignId('commandeVente_id')->constrained('commande_ventes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('produit_id')->constrained('produits')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

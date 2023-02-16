@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Client;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,11 +20,14 @@ class CommandeVenteFactory extends Factory
     public function definition()
     {
         $client = Client::pluck('id')->toArray();
+        $user = User::pluck('id')->toArray();
 
         return [
             'dateCom' => Carbon::parse(),
-            // 'client_id' => Client::factory(),
             'client_id' => fake()->randomElement($client),
+            'user_id' => fake()->randomElement($user),
+            // 'client_id' => Client::factory(),
+            // 'user_id' => User::factory()
         ];
     }
 }
