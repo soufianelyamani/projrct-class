@@ -30,7 +30,7 @@ class ClientController extends Controller
         // echo $client->CommandeVente[0]->dateCom;
         // exit();
 
-        $client = Client::withCount('commandeVente', 'user')->orderBy('updated_at', 'desc')->get();
+        $client = Client::withCount('commandeVente', 'user')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -48,7 +48,7 @@ class ClientController extends Controller
      {
 
         //La méthode onlyTrashed ne récupérera que le client qui a été supprimé.
-        $client = Client::onlyTrashed()->withCount('commandeVente')->orderBy('updated_at', 'desc')->get();
+        $client = Client::onlyTrashed()->withCount('commandeVente')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -66,7 +66,7 @@ class ClientController extends Controller
     {
         //La méthode withTrashed ne récupérera que le client qui a été supprimé.
 
-        $client = Client::withTrashed()->withCount('commandeVente')->orderBy('updated_at', 'desc')->get();
+        $client = Client::withTrashed()->withCount('commandeVente')->get();
 
         return view('client.index', [
             'clients' => $client,
@@ -122,7 +122,7 @@ class ClientController extends Controller
 
         Session::flash('status store', 'Your add operation has been successfully completed!');
 
-        return redirect()->route('client.index');
+        return redirect()->route('client.show', ['client' => $ad->id]);
     }
 
     /**
@@ -135,14 +135,8 @@ class ClientController extends Controller
     {
         $donné = client::withCount('commandeVente')->get()->find($id);
 
-        // $this->authorize('client', $donné);
-
-        $commande = CommandeVente::all();
-
         return view("client.show", [
-            'commandes' => $commande,
             'donne' => $donné,
-            // 'nbrComs' => $nbrCom,
         ]);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Client;
+use App\Scope\TestScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,19 +34,28 @@ class CommandeVente extends Model
 
     }
 
+    // public function scopeKhode(Builder $query) {
+
+    //     return $query->get();
+
+    // }
+
+
     public static function boot() {
         parent::boot();
 
-        static::deleting(function($client){
+        parent::addGlobalScope(new TestScope);
 
-            $client->client()->delete();
+        // static::deleting(function($client){
 
-        });
+        //     $client->client()->delete();
 
-        static::restoring(function($client){
+        // });
 
-            $client->client()->restore();
+        // static::restoring(function($client){
 
-        });
+        //     $client->client()->restore();
+
+        // });
     }
 }

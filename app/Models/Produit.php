@@ -13,11 +13,11 @@ class Produit extends Model
     use HasFactory, SoftDeletes;
 
     public function TypeProduit() {
-        return $this->BelongsTo('TypeProduit');
+        return $this->BelongsTo(TypeProduit::class , 'typeProduit_id');
     }
 
     public function LigneCommendeVente(){
-        return $this->hasOne('LigneCommendeVente');
+        return $this->hasOne(LigneCommandeVente::class);
     }
 
     public function CommandeVente(){

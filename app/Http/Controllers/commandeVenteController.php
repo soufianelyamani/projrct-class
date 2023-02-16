@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\commandeVente;
+use App\Models\LigneCommandeVente;
+use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -19,10 +21,6 @@ class commandeVenteController extends Controller
     {
 
         $commande = commandeVente::with('client')->get();
-        // return $commande;
-
-
-        // return $commande;
 
         return view('commandeVente.index', [
             'commandes' => $commande,
@@ -52,6 +50,8 @@ class commandeVenteController extends Controller
     public function store(Request $request)
     {
 
+        dd($request->all());
+
         $request->validate([
             'dateCom' => 'required',
             'client_id' => 'required'
@@ -79,9 +79,13 @@ class commandeVenteController extends Controller
      */
     public function show($id)
     {
-        $show = commandeVente::with('client')->find($id);
-        return view('commandeVente.show', [
-            'show' => $show
+        // $show = commandeVente::with('client')->find($id);
+        $show = LigneCommandeVente::with(['commandeVente', 'produit'])->find($id);
+        $id = $show->produit->typeProduit_id;
+        $produit = Produit::with(['TypeProduit'])->find($id);
+        return view('ligneCommandeVente.show', [
+            'show' => $show,
+            'show2' => $produit
         ]);
     }
 
@@ -97,6 +101,7 @@ class commandeVenteController extends Controller
         $clients = Client::all();
 
         $edit = commandeVente::findOrFail($id);
+        // return $edit;
         return view('commandeVente.edit', [
             'clients' => $clients,
             'edit' => $edit

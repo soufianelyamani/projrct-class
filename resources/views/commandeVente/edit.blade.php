@@ -9,11 +9,8 @@
 
                 <label class="badge badge-primary" for="dateCom">Date de commamde :</label>
                 <div name="dateCom" class="input-group date" id="datetimepicker" data-target-input="nearest">
-                    <input type="date" name="v" value="{{ old('dateCom', $edit->dateCom ?? null) }}" id="dateCom"
+                    <input type="date" name="dateCom" value="{{ $edit->dateCom }}" id="dateCom"
                         class="form-control datetimepicker-input" data-target="#datetimepicker" />
-                    <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
                 </div>
                 <!-- Date pick -->
                 <script type="text/javascript">
@@ -34,6 +31,9 @@
                 <input type="submit" class="btn btn-success" value="Update"><br>
             </form>
         </div>
+    </div>
+
+
     </div>
 @endsection
 @section('Ajout')

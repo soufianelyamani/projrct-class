@@ -13,7 +13,7 @@ class TypeProduit extends Model
     use HasFactory, SoftDeletes;
 
     public function Produit() {
-        return $this->hasOne('Produit');
+        return $this->hasMany(Produit::class);
     }
 
     public function user() {

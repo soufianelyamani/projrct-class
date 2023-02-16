@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ClientSeeder::class,
             CommandeVenteSeeder::class,
+            LigneCommandeVenteSeeder::class
             // UserSeeder::class
         ]);
     }

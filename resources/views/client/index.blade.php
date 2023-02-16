@@ -1,4 +1,3 @@
-{{-- @extends('layout') --}}
 @extends('layouts.app')
 
 @section('container')
@@ -36,6 +35,9 @@
                 </th>
                 <th scope="col">
                     <p class="fw-bold mb-1">Adresse</p>
+                </th>
+                <th scope="col">
+                    <p class="fw-bold mb-1">Nbr de Cmd</p>
                 </th>
                 <th scope="col">
                     <p class="fw-bold mb-1">Last updated</p>
@@ -94,6 +96,13 @@
                 </td>
                 <td>
                     <p class="fw-bold mb-1">{{ $client->adresse }}</p>
+                </td>
+                <td>
+                    @if ($client->commande_vente_count)
+                        <p>{{ $client->commande_vente_count }} comments</p>
+                    @else
+                        <p>No comments yet!</p>
+                    @endif
                 </td>
                 <td>
                     <div class="ms-3 text-muted">

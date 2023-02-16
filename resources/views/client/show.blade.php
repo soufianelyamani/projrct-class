@@ -29,7 +29,7 @@
             <h4>{{ $donne->adresse }}</h4>
             </p>
             {{-- <label class="badge badge-primary" for="Adresse">List de Commande :</label> --}}
-            <label style="background-color: grey" class="badge badge-primary" for="Nbr de Com">Nbr de Com</label>
+            <label style="background-color: grey" class="badge badge-primary" for="Nbr de Com">==</label>
             <p class="fw-bold mb-1">
             <h4>{{ $donne->commande_vente_count }}</h4>
             </p>

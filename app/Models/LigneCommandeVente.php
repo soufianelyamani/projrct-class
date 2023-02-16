@@ -12,12 +12,12 @@ class LigneCommandeVente extends Model
 
     use HasFactory, SoftDeletes;
 
-    public function CommandeVente() {
-        return $this->BelongsTo('CommandeVente');
+    public function commandeVente() {
+        return $this->BelongsTo(CommandeVente::class, 'commandeVente_id');
     }
 
-    public function Produit() {
-        return $this->BelongsTo('Produit');
+    public function produit() {
+        return $this->BelongsTo(Produit::class, 'produit_id');
     }
 
     public function user() {
