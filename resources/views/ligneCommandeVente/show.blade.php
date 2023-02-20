@@ -1,11 +1,14 @@
 @extends('layouts.app')
 @section('container')
+
+    
+
     <div class="card">
         {{-- <div class="card-header"> --}}
-        <div class="card-body">
+        <div class="card-body">@foreach ($shows as $show)
             <label class="badge badge-primary" for="nom">Libelle :</label>
             <p class="fw-bold mb-1">
-            <h3>{{ $show->produit->libelle }}</h3>
+            <h3>{{ $show->libelle }}</h3>
             </p>
             <label class="badge badge-primary" for="nom">Type Produit :</label>
             <p class="fw-bold mb-1">
@@ -23,12 +26,13 @@
             <p class="fw-bold mb-1">
             <h3>{{ $show->produit->qtStock }}</h3>
             </p>
-
+@endforeach
             {{-- <img src="/uploads/untitled-185-DAI-low-light.jpg" alt="" srcset=""> --}}
         </div>
         {{-- </div> --}}
     </div>
+    
 @endsection
-@section('Ajout')
+{{-- @section('Ajout')
     <a class='navbar-brand' href="{{ url()->previous() }}">Back</a>
-@endsection
+@endsection --}}

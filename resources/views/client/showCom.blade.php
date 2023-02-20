@@ -26,7 +26,7 @@
                 </th>
             </tr>
         </thead>
-        @foreach ($commandes as $commande)
+        @foreach ($show as $commande)
             <tbody>
                 <tr class="center" style="background-color: white">
                     <td>

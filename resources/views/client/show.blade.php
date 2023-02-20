@@ -1,44 +1,64 @@
 @extends('layouts.app')
 @section('container')
-    <div class="card">
-        {{-- <div class="card-header"> --}}
-        <div class="card-body">
+<style>
+    h3{
+        margin-left:90px 
+    } 
+    .my-5{
+        width: 50%
+    }
+    .label{
+        font-size: 15px;
+    }
+    .label1{
+        font-size: 22px;
+    }
+    .div{
+        display: flex;
+        flex-direction: column
+    }
+    td{
+       font-size: 20px;
+       padding-bottom: 35px 
+    }
+</style>
 
-            <label style="background-color: grey" class="badge badge-primary" for="nom">Name :</label>
-            <p class="fw-bold mb-1">
-            <h3>{{ $donne->nom }}</h3>
-            </p>
-            <label style="background-color: grey" class="badge badge-primary" for="prenom">Prenom :</label><br>
-            <p class="fw-bold mb-1">
-            <h3>{{ $donne->prenom }}</h3>
-            </p>
-            <label style="background-color: grey" class="badge badge-primary" for="telephone">Téléphone :</label><br>
-            <p class="fw-bold mb-1">
-            <h3>{{ $donne->telephone }}</h3>
-            </p>
-            <label style="background-color: grey" class="badge badge-primary" for="Email">Email : </label>
-            <p class="fw-bold mb-1">
-            <h3>{{ $donne->email }}</h3>
-            </p>
-            <label style="background-color: grey" class="badge badge-primary" for="ville">Ville : </label>
-            <p class="fw-bold mb-1">
-            <h3>{{ $donne->ville }}</h3>
-            </p>
-            <label style="background-color: grey" class="badge badge-primary" for="Adresse">Adresse :</label>
-            <p class="fw-bold mb-1">
-            <h4>{{ $donne->adresse }}</h4>
-            </p>
-            {{-- <label class="badge badge-primary" for="Adresse">List de Commande :</label> --}}
-            <label style="background-color: grey" class="badge badge-primary" for="Nbr de Com">==</label>
-            <p class="fw-bold mb-1">
-            <h4>{{ $donne->commande_vente_count }}</h4>
-            </p>
-            @if ((new Carbon\Carbon())->diffInMinutes($donne->created_at) < 5)
-                <strong>New!</strong>
-            @endif
-            {{-- <img src="/uploads/untitled-185-DAI-low-light.jpg" alt="" srcset=""> --}}
-        </div>
-        {{-- </div> --}}
+    <div class="card" style="padding: 20px">
+        <table>
+            <tr>
+               <td> <b><u>Nom :</u></b></td>
+                <td>- {{ $donne->nom }}</td>
+            </tr>
+         
+            <tr>
+               <td> <b><u>Prenom :</u></b></td>
+                <td>- {{ $donne->prenom }}</td>
+            </tr>
+            <tr>
+               <td> <b><u>Téléphone :</u></b></td>
+                <td>- {{ $donne->telephone }}</td>
+            </tr>
+            <tr>
+               <td> <b><u>Email :</u></b></td>
+                <td>- {{ $donne->email }}</td>
+            </tr>
+            <tr>
+               <td> <b><u>Ville :</u></b></td>
+                <td>- {{ $donne->ville }}</td>
+            </tr>
+            <tr>
+                <td> <b><u>Adresse :</u></b></td>
+                 <td>- {{ $donne->adresse}}</td>
+             </tr>
+             <tr>
+                <td> <b><u>Commande :</u></b></td>
+                 <td>- {{ $donne->commande_vente_count }}</td>
+                 <td>   @if ((new Carbon\Carbon())->diffInMinutes($donne->created_at) < 5)
+                    <strong>New!</strong>
+                @endif</td>
+             </tr>
+        </table>
+      
     </div>
 @endsection
 @section('Ajout')

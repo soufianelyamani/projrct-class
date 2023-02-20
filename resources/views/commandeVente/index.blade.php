@@ -42,7 +42,7 @@
                     </td>
                     <td>
                         <div class="ms-3">
-                            <a href="{{ route('client.show', $commande->id) }}">
+                            <a href="{{ route('client.show', $commande->client_id) }}">
                                 <p class="fw-bold mb-1">{{ $commande->client->prenom }} {{ $commande->client->nom }}</p>
                             </a>
                         </div>
@@ -88,5 +88,5 @@
     </script>
 @endsection
 @section('Ajout')
-    <a class='link-dark' href="{{ route('client.create') }}">Ajoute</a>
+    <a class='link-dark' href="{{ route('commandeVente.create') }}">Ajoute</a>
 @endsection

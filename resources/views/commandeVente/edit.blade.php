@@ -1,40 +1,53 @@
 @extends('layouts.app')
 @section('container')
-    <div class="card">
-        <div class="card-header">Edit Commende</div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('commandeVente.update', [$edit->id]) }}">
-                @method('PUT')
+<style>
+    .my-5{
+      width: 50%
+  }
+</style>
+<div class="card-body">
+    <form method="POST" action="{{ route('commandeVente.update',[$edit->id]) }}">
+        @method('PUT')
                 @csrf
-
-                <label class="badge badge-primary" for="dateCom">Date de commamde :</label>
-                <div name="dateCom" class="input-group date" id="datetimepicker" data-target-input="nearest">
-                    <input type="date" name="dateCom" value="{{ $edit->dateCom }}" id="dateCom"
-                        class="form-control datetimepicker-input" data-target="#datetimepicker" />
+        <label style="color: black; padding: 25px" for="dateCom" >Date De Commande </label>
+        <div class="form-group" style="padding-left: 25px;padding-bottom: 0px">
+            <div name="dateCom" class="input-group date" id="datetimepicker" data-target-input="nearest" style="width: 43%">
+                <input type="date" name="dateCom" id="dateCom" class="form-control datetimepicker-input"
+                    data-target="#datetimepicker" />
+                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
-                <!-- Date pick -->
-                <script type="text/javascript">
-                    $(function() {
-                        $('#datetimepicker').datetimepicker();
-                    });
-                </script>
-                <label class="badge badge-primary" for="client_id">Prenom :</label><br>
-                <select name="client_id" id="client_id" class="form-select form-select-lg mb-3"
-                    aria-label=".form-select-lg example">
-                    <option value="" disabled selected>Choose your client</option>
-                    @foreach ($clients as $client)
-                        <option value="{{ old('client_id', $client->id ?? null) }}">{{ $client->prenom }}
-                            {{ $client->nom }}</option>
-                    @endforeach
-                </select>
-                <br>
-                <input type="submit" class="btn btn-success" value="Update"><br>
-            </form>
+            </div>
         </div>
-    </div>
+        <script type="text/javascript">
+            $(function() {
+                $('#datetimepicker').datetimepicker();
+            });
+        </script>
 
-
-    </div>
+        @error('dateCom')
+            <div class="alert alert-danger" role="alert">
+                <li style="color:red">{{ $message }}</li>
+            </div>
+        @enderror <br>
+        <label style="color: black;padding: 25px;padding-bottom: 5px" for="client_id">Commande Of </label>
+        <select name="client_id" id="client_id" class="form-select form-select-lg mb-3"
+            aria-label=".form-select-lg example" style="width: 43% ;margin-left: 25px;">
+            <option value="" disabled selected>Choose your client</option>
+            @foreach ($clients as $cmd)
+                <option value="{{ $cmd->id }}">{{ $cmd->prenom }} {{ $cmd->nom }}</option>
+            @endforeach
+        </select><br>
+        @error('client_id')
+            <div class="alert alert-danger" role="alert">
+                <li style="color:red">{{ $message }}</li>
+            </div>
+        @enderror
+        <br>
+        <button id="submit" class="btn btn-success" style="margin: 25px; margin-top: 0;width: 43%">Update</button>
+       
+    </form>
+</div>
 @endsection
 @section('Ajout')
     <a class='fas fa-arrow-alt-circle-left' href="{{ route('commandeVente.index') }}">Back</a>

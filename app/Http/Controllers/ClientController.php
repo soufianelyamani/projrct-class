@@ -122,7 +122,7 @@ class ClientController extends Controller
 
         Session::flash('status store', 'Your add operation has been successfully completed!');
 
-        return redirect()->route('client.show', ['client' => $ad->id]);
+        return redirect()->route('client.index', ['client' => $ad->id]);
     }
 
     /**
@@ -152,7 +152,7 @@ class ClientController extends Controller
         // return $edit;
 
         //pour l'autorisation d'update
-        $this->authorize('update', $edit);
+        // $this->authorize('update', $edit);
 
         return view('client.edit', [
             'edit' => $edit
@@ -172,7 +172,7 @@ class ClientController extends Controller
 
         //pour l'autorisation d'update
 
-        $this->authorize('update', $update);
+        // $this->authorize('update', $update);
 
         // if (Gate::denies('client.update', $update)) {
         //     abort(403, "You can't edit this client");
@@ -206,7 +206,7 @@ class ClientController extends Controller
         $client = Client::find($id);
 
         //pour l'autorisation de destroy
-        $this->authorize('delete', $client);
+        // $this->authorize('delete', $client);
 
         CommandeVente::where('client_id', $client->id);
 

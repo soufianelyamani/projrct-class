@@ -28,13 +28,19 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/bootstrap.min.css', 'resources/css/bootstrap.min.css'])
+    <style>
+        body{
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(254, 251, 233, 1)0%, rgba(225, 238, 221, 1) 79%); 
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark  bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark  bg-dark shadow-sm" style="background-color: #F0A04B !important ; " >
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color: #183A1D !important; ">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -48,21 +54,21 @@
                     <div class="container-fluid">
                         <!-- Links -->
                         <ul class="navbar-nav">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">Homme</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('client.index') }}">Client</a>
+                                <a class="nav-link" href="{{ route('client.index') }}" style="color: #183A1D !important; ">Client</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('client.create') }}">Add Client</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('commandeVente.index') }}">Commande De Client</a>
+                                <a class="nav-link" href="{{ route('commandeVente.index') }}" style="color: #183A1D !important; ">Commande De Client</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('commandeVente.create') }}">Add Commande</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                     <!-- Right Side Of Navbar -->
@@ -71,19 +77,19 @@
                         @guest
                             {{-- @if (Route::has('login')) --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}" style="color: #183A1D !important; ">{{ __('Login') }}</a>
                             </li>
                             {{-- @endif --}}
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}" style="color: #183A1D !important; ">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: #183A1D !important; ">
                                     {{ Auth::user()->name }}
                                 </a>
 

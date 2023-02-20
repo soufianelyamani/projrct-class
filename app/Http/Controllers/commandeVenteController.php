@@ -19,11 +19,13 @@ class commandeVenteController extends Controller
      */
     public function index()
     {
-
+   
         $commande = commandeVente::with('client')->get();
-
+     
         return view('commandeVente.index', [
             'commandes' => $commande,
+            
+          
             'tab' => 'list'
         ]);
     }
@@ -34,11 +36,11 @@ class commandeVenteController extends Controller
      */
     public function create()
     {
-        // $clients = Client::all();
+        $clients = Client::all();
 
         $commandeVente = commandeVente::with(['client', 'user'])->orderBy('updated_at', 'desc')->get();
 
-        return view('commandeVente.create', compact('commandeVente'));
+        return view('commandeVente.create',[ compact('commandeVente'),'clients'=>$clients]);
     }
 
     /**
@@ -49,8 +51,8 @@ class commandeVenteController extends Controller
      */
     public function store(Request $request)
     {
-
-        dd($request->all());
+        $commande = commandeVente::with('client')->get();
+        // dd($request->all());
 
         $request->validate([
             'dateCom' => 'required',
@@ -67,8 +69,13 @@ class commandeVenteController extends Controller
 
         Session::flash("status store', 'Votre opération d'ajout a été effectuée avec succès !");
 
-        return redirect()->route('commandeVente.index');
-
+        // return redirect()->route('commandeVente.index');
+        // return view('commandeVente.index');
+        return view('commandeVente.index', [
+            'commandes' => $commande,
+          
+            'tab' => 'list'
+        ]);
     }
 
     /**
@@ -79,13 +86,27 @@ class commandeVenteController extends Controller
      */
     public function show($id)
     {
-        // $show = commandeVente::with('client')->find($id);
-        $show = LigneCommandeVente::with(['commandeVente', 'produit'])->find($id);
-        $id = $show->produit->typeProduit_id;
-        $produit = Produit::with(['TypeProduit'])->find($id);
-        return view('ligneCommandeVente.show', [
+        // // $show = commandeVente::with('client')->find($id);
+        // $produit = LigneCommandeVente::with(['commandeVente', 'produit'])->get();
+        // // $id = $show->produit->typeProduit_id;
+        // $tab=[];
+        // foreach($produit as $cap){
+        //     if($cap->commandeVente_id == $id){
+        //         array_push($tab,$cap);
+        //     }
+        // }
+        // $commandeVente = commandeVente::with('client')->find($id);
+
+        // $produit = Produit::with(['TypeProduit'])->find($id);
+        // return view('ligneCommandeVente.show', [
+        //     'shows' => $tab,
+        //     'show2' => $produit
+        // ]);
+        $show = commandeVente::with('client')->find($id);
+  
+
+        return view("commandeVente.show", [
             'show' => $show,
-            'show2' => $produit
         ]);
     }
 
@@ -121,8 +142,8 @@ class commandeVenteController extends Controller
         // $update1 = Client::find($id);
         $update->update($request->all());
         // $update->id = $request->input("id");
-        // $update->dateCom = $request->input("dateCom");
-        // $update->client_id = $request->input("client_id");
+        $update->dateCom = $request->input("dateCom");
+        $update->client_id = $request->input("client_id");
 
         $update->save();
         // $update1->save();
